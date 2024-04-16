@@ -10,6 +10,7 @@ use App\Helpers\HelperFunctions;
 
 class DefaultController  extends AbstractController
 {
+
     #[Route('/', "home")]
     public function defaultAction(): Response
     {
@@ -59,10 +60,15 @@ class DefaultController  extends AbstractController
     {
         $number = $request->attributes->get('number');
         $token = $request->attributes->get('token');
+        $staticParam = $this->getParameter('staticparam');
+        $serviceParam = $this->getParameter('serviceparameter');
+
         return $this->render('tesztrender.html.twig', [
             'welcome'=>'Hello on my awesome website',
             'some_variable' => $number,
-            'token'=>$token
+            'token'=>$token,
+            'static_param'=>$staticParam,
+            'service_param'=>$serviceParam
         ]);
     }
 

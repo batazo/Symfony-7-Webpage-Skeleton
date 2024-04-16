@@ -3,7 +3,12 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+
+imports:
+    - { resource: 'config.yaml' }
+
 parameters:
+    serviceparameter: "SERVICE PARAMETER"
 
 services:
     # default configuration for services in *this* file
@@ -25,6 +30,8 @@ services:
     App\EventListener\BeforeTesztRenderListener:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.controller' }
-            
+
     App\Middleware\TokenMiddleware:
+        arguments:
+            $arg: "ARG"
         decorates: 'http_kernel'

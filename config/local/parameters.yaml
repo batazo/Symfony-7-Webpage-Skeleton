@@ -1,0 +1,4 @@
+parameters:
+    staticparam: "THIS IS A STATIC PARAM"
+
+
