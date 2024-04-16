@@ -1,3 +1,6 @@
-OK: {{some_variable}}
+{% extends 'layout.twig' %}
 
-{{dump(some_variable)}}
+{% block content %}
+    OK: {{some_variable}}
+    {{dump(some_variable)}}
+{% endblock %}
