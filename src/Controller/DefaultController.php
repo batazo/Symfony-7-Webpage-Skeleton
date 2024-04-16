@@ -58,6 +58,7 @@ class DefaultController  extends AbstractController
     #[Route('/tesztRender', "teszt-render")]
     public function tesztRenderAction(Request $request): Response
     {
+        $env_var = $_ENV['TESZT_ENV'];
         $number = $request->attributes->get('number');
         $token = $request->attributes->get('token');
         $staticParam = $this->getParameter('staticparam');
@@ -68,7 +69,8 @@ class DefaultController  extends AbstractController
             'some_variable' => $number,
             'token'=>$token,
             'static_param'=>$staticParam,
-            'service_param'=>$serviceParam
+            'service_param'=>$serviceParam,
+            'env_var'=>$env_var
         ]);
     }
 
