@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -31,5 +32,14 @@ class DefaultController
         return new Response(
             '<html><body>Hello</body></html>'
         );
+    }
+
+    #[Route('/tesztReq/{path}', "teszt-req")]
+    public function tesztRequestAction(Request $request, $path): JsonResponse
+    {
+        //?id=XY on route
+        $data = $request->query->get("id");
+
+        return new JsonResponse($path);
     }
 }
