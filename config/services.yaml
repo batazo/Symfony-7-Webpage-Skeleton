@@ -33,5 +33,5 @@ services:
 
     App\Middleware\TokenMiddleware:
         arguments:
-            $arg: "ARG"
+            $arg: "ARG - in services.yaml"
         decorates: 'http_kernel'
