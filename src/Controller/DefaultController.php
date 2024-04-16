@@ -58,6 +58,7 @@ class DefaultController  extends AbstractController
     public function tesztRenderAction(Request $request): Response
     {
         return $this->render('tesztrender.html.twig', [
+            'welcome'=>'Hello on my awesome website',
             'some_variable' => 'Some value',
         ]);
     }
