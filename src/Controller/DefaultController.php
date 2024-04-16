@@ -47,8 +47,13 @@ class DefaultController
     public function tesztCookieAction(Request $request): JsonResponse
     {
         //cookies
-        $data = $request->cookies->get("token");
+        $data = $this->getTokenFromCookie($request);
 
         return new JsonResponse($data);
+    }
+
+    private function getTokenFromCookie(Request $request): string|null {
+        return $request->cookies->get("token");
+        
     }
 }
