@@ -61,6 +61,7 @@ class DefaultController  extends AbstractController
         $env_var = $_ENV['TESZT_ENV'];
         $number = $request->attributes->get('number');
         $token = $request->attributes->get('token');
+        $arg = $request->attributes->get('arg');
         $staticParam = $this->getParameter('staticparam');
         $serviceParam = $this->getParameter('serviceparameter');
 
@@ -68,6 +69,7 @@ class DefaultController  extends AbstractController
             'welcome'=>'Hello on my awesome website',
             'some_variable' => $number,
             'token'=>$token,
+            'arg'=>$arg,
             'static_param'=>$staticParam,
             'service_param'=>$serviceParam,
             'env_var'=>$env_var

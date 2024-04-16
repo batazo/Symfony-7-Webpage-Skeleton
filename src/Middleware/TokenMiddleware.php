@@ -20,9 +20,9 @@ class TokenMiddleware implements HttpKernelInterface
 
     public function handle(Request $request, int $type = self::MASTER_REQUEST, bool $catch = true): Response
     {  
-        var_dump($this->arg);      
         $token = $request->cookies->get('token');
         $request->attributes->set('token', $token);
+        $request->attributes->set('arg', $this->arg);
 
         return $this->app->handle($request, $type, $catch);
     }
