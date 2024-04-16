@@ -1,13 +1,14 @@
 <?php
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Helpers\HelperFunctions;
 
-class DefaultController
+class DefaultController  extends AbstractController
 {
     #[Route('/', "home")]
     public function defaultAction(): Response
@@ -51,6 +52,14 @@ class DefaultController
         $data = HelperFunctions::getTokenFromCookie($request);
 
         return new JsonResponse($data);
+    }
+
+    #[Route('/tesztRender', "teszt-render")]
+    public function tesztRenderAction(Request $request): Response
+    {
+        return $this->render('tesztrender.html.twig', [
+            'some_variable' => 'Some value',
+        ]);
     }
 
 }
