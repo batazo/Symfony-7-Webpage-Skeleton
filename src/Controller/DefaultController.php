@@ -42,4 +42,13 @@ class DefaultController
 
         return new JsonResponse($path);
     }
+
+    #[Route('/tesztCookie', "teszt-c")]
+    public function tesztCookieAction(Request $request): JsonResponse
+    {
+        //cookies
+        $data = $request->cookies->get("token");
+
+        return new JsonResponse($data);
+    }
 }
