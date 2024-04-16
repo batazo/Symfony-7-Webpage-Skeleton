@@ -57,9 +57,12 @@ class DefaultController  extends AbstractController
     #[Route('/tesztRender', "teszt-render")]
     public function tesztRenderAction(Request $request): Response
     {
+        $number = $request->attributes->get('number');
+        $token = $request->attributes->get('token');
         return $this->render('tesztrender.html.twig', [
             'welcome'=>'Hello on my awesome website',
-            'some_variable' => 'Some value',
+            'some_variable' => $number,
+            'token'=>$token
         ]);
     }
 

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class NumberMiddleware implements HttpKernelInterface
+class TokenMiddleware implements HttpKernelInterface
 {
     private $app;
 
@@ -17,10 +17,9 @@ class NumberMiddleware implements HttpKernelInterface
     }
 
     public function handle(Request $request, int $type = self::MASTER_REQUEST, bool $catch = true): Response
-    {
-        if ($request->attributes->get('_route') === 'teszt-render') {
-            $request->attributes->set('number', 5);
-        }
+    {        
+        $token = $request->cookies->get('token');
+        $request->attributes->set('token', $token);
 
         return $this->app->handle($request, $type, $catch);
     }
