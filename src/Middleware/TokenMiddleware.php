@@ -16,7 +16,7 @@ class NumberMiddleware implements HttpKernelInterface
         $this->app = $app;
     }
 
-    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
+    public function handle(Request $request, int $type = self::MASTER_REQUEST, bool $catch = true): Response
     {
         if ($request->attributes->get('_route') === 'teszt-render') {
             $request->attributes->set('number', 5);
