@@ -5,6 +5,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Helpers\HelperFunctions;
 
 class DefaultController
 {
@@ -47,13 +48,9 @@ class DefaultController
     public function tesztCookieAction(Request $request): JsonResponse
     {
         //cookies
-        $data = $this->getTokenFromCookie($request);
+        $data = HelperFunctions::getTokenFromCookie($request);
 
         return new JsonResponse($data);
     }
 
-    private function getTokenFromCookie(Request $request): string|null {
-        return $request->cookies->get("token");
-        
-    }
 }
