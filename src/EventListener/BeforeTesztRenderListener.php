@@ -7,6 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BeforeTesztRenderListener
 {
+    private $evl_arg;
+    public function __construct($evl_arg)
+    {
+        $this->evl_arg = $evl_arg;
+    }
     public function onKernelController(ControllerEvent $event)
     {
         $controller = $event->getController();
@@ -17,6 +22,9 @@ class BeforeTesztRenderListener
             /** @var Request $request */
             $request = $event->getRequest();
             $request->attributes->set('number', 5);
+            $token = $request->cookies->get('token');
+            $request->attributes->set('token', $token);
+            $request->attributes->set('arg', $this->evl_arg);
         }
     }
 }
