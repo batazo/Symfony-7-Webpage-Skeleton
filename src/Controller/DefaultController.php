@@ -6,10 +6,19 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
 use App\Helpers\HelperFunctions;
+
+use App\Repository\OptionsRepository;
 
 class DefaultController  extends AbstractController
 {
+    private $optionsRepository;
+
+    public function __construct(OptionsRepository $optionsRepository)
+    {
+        $this->optionsRepository = $optionsRepository;
+    }
 
     #[Route('/', "home")]
     public function defaultAction(): Response
@@ -80,8 +89,18 @@ class DefaultController  extends AbstractController
     #[Route('/tesztDatabase', "teszt-database")]
     public function tesztDatabase(Request $request): JsonResponse
     {
+
+        $optionKey = 'sitename';
+        $options = $this->optionsRepository->findAllOptions();
+        $sitename = $this->optionsRepository->findValueByOptionKey($optionKey);
+        $sitename2 = $this->optionsRepository->findOneBySomeField($optionKey);
+        $sitename2 = $sitename2->getOptionkey();
+
         $data = [
-            "hello"=>"ok"
+            "hello"=>"ok",
+            "sitename"=>$sitename,
+            "sitenamekey"=>$sitename2,
+            "options"=>$options,
         ];
 
         return new JsonResponse($data);

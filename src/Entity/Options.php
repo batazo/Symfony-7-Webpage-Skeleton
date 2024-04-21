@@ -9,10 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Options
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column(length: 50)]
     private ?string $optionkey = null;
 
@@ -21,11 +17,6 @@ class Options
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $comment = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getOptionkey(): ?string
     {

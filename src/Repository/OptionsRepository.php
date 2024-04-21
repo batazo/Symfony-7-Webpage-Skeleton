@@ -9,10 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Options>
  *
- * @method Options|null find($id, $lockMode = null, $lockVersion = null)
- * @method Options|null findOneBy(array $criteria, array $orderBy = null)
- * @method Options[]    findAll()
- * @method Options[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Options[]|null findAllOptions() 
  */
 class OptionsRepository extends ServiceEntityRepository
 {
@@ -21,28 +18,39 @@ class OptionsRepository extends ServiceEntityRepository
         parent::__construct($registry, Options::class);
     }
 
-    //    /**
-    //     * @return Options[] Returns an array of Options objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('o.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findAllOptions(): array
+    {
+        $options = $this->createQueryBuilder('o')
+            ->select('o.optionkey', 'o.value')
+            ->getQuery()
+            ->getResult();
+    
+        $result = [];
+        foreach ($options as $option) {
+            $result[$option['optionkey']] = $option['value'];
+        }
+    
+        return $result;
+    }
 
-    //    public function findOneBySomeField($value): ?Options
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findOneBySomeField($value): ?Options
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.optionkey = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findValueByOptionKey($optionKey): ?string
+    {
+        $option = $this->createQueryBuilder('options')
+            ->andWhere('options.optionkey = :optionKey')
+            ->setParameter('optionKey', $optionKey)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $option ? $option->getValue() : null;
+    }
 }
