@@ -9,6 +9,12 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ExceptionListener
 {
+
+    private $listener_type;
+    public function __construct($listener_type)
+    {
+        $this->listener_type = $listener_type;
+    }
     public function onKernelException(ExceptionEvent $event)
     {
 
@@ -23,6 +29,7 @@ class ExceptionListener
             $response = new JsonResponse([
                 'message'       => $exception->getMessage(),
                 'code'          => $exception->getStatusCode(),
+                'listener_type' => $this->listener_type
                 //'traces'        => $exception->getTrace()
             ]);
 
