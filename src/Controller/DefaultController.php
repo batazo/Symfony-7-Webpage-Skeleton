@@ -76,4 +76,15 @@ class DefaultController  extends AbstractController
         ]);
     }
 
+
+    #[Route('/tesztDatabase', "teszt-database")]
+    public function tesztDatabase(Request $request): JsonResponse
+    {
+        $data = [
+            "hello"=>"ok"
+        ];
+
+        return new JsonResponse($data);
+    }
+
 }
