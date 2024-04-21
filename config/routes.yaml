@@ -4,6 +4,13 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+api:
+    resource: 
+        path: '../src/Controller/Api'
+        namespace: App\Controller\Api
+    type: attribute
+    prefix: '/api'
+
 when@dev:
     _errors:
         resource: 'routes/framework.yaml'
