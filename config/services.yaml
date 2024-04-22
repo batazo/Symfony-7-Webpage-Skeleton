@@ -30,6 +30,7 @@ services:
     App\EventListener\ExceptionListener:
         arguments:
             $listener_type: "Exception"
+            $listener_path: "/api"
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
